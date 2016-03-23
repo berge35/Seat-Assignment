@@ -14,6 +14,9 @@ import sys
 if __name__ == '__main__':
     pass
 
+planeImage  #set to path of plane.png
+firstClassImage     #set to path of firstClassTaken.png
+economyClassImage   #set to path of economyClassTaken.png
 
 MAX_SEATS = 159         #maximum seats in the aircraft
 MAX_FIRST_CLASS = 12    #maximum first class seats
@@ -202,9 +205,9 @@ def main(num):
     pygame.display.init()         
     planeDisplay = pygame.display.set_mode((279,63))   #setting display region
     pygame.display.set_caption("Seating")       #Title for display
-    plane = pygame.image.load("C:/users/chris/desktop/plane.png")    #load plane seating image
-    firstTaken = pygame.image.load("C:/users/chris/desktop/firstClassTaken.png").convert_alpha()    #load first class taken image
-    economyTaken = pygame.image.load("C:/users/chris/desktop/economyClassTaken.png").convert_alpha()    #load economy class taken image
+    plane = pygame.image.load(planeImage)    #load plane seating image
+    firstTaken = pygame.image.load(firstClassImage).convert_alpha()    #load first class taken image
+    economyTaken = pygame.image.load(economyClassImage).convert_alpha()    #load economy class taken image
     planeDisplay.blit(plane,(0,0))
     pygame.display.flip()
     displayExit = False
