@@ -14,9 +14,6 @@ import sys
 if __name__ == '__main__':
     pass
 
-planeImage  #set to path of plane.png
-firstClassImage     #set to path of firstClassTaken.png
-economyClassImage   #set to path of economyClassTaken.png
 
 MAX_SEATS = 159         #maximum seats in the aircraft
 MAX_FIRST_CLASS = 12    #maximum first class seats
@@ -55,20 +52,23 @@ def generatePassengers(num):
         tempPassenger.id = i            #passenger gets id of iterator
         if firstClass < MAX_FIRST_CLASS:        #if first class seats are still available
             random.seed(None)   #seeds the pseudo-random generator with the current system time
-            classList = [0,1]
-            tempPassenger.passClass = numpy.random.choice(classList)      #pseudo-randomly gives the passenger a class
+            num = numpy.random.choice(range(0,100))
+            if num < 10:
+                tempPassenger.passClass = 1      #pseudo-randomly gives the passenger a class
+            else:
+                tempPassenger.passClass = 0
             if tempPassenger.passClass == 1:
                 firstClass = firstClass + 1     #if passenger assigned first class, increment first class seats taken
-        prefChoices = [1,2,3]   #preference choices
+        prefChoices = range(0,100)   #preference choices
         random.seed(None)
         choice = numpy.random.choice(prefChoices)   #pseudo random preference choice
-        if choice == 1:     #window preference
+        if choice in range(0,45):     #window preference
             tempPassenger.window = True
             tempPassenger.isle = False
-        elif choice == 2:     #isle preference
+        elif choice in range(45,80):     #isle preference
             tempPassenger.window = False
             tempPassenger.isle = True
-        elif choice == 3:     #no preference
+        elif choice in range(80,100):     #no preference
             tempPassenger.window = False
             tempPassenger.isle = False
         random.seed(None)   
@@ -139,9 +139,9 @@ def assignSeats(passList, seatList):
         for j in range(0,len(seatList)):    #iterates through seat list
             seatList[j].weight = 0
             if passList[i].window == True and seatList[j].window == True:       #passenger window preference met
-                seatList[j].weight = seatList[j].weight + 10
+                seatList[j].weight = seatList[j].weight + 100
             if passList[i].isle == True and seatList[j].isle == True:       #passenger isle preference met
-                seatList[j].weight = seatList[j].weight + 10
+                seatList[j].weight = seatList[j].weight + 100
             #checking seats around selected seat
             if j < MAX_FIRST_CLASS:     #seat in first class
                 if j % 4 == 0 or j % 4 == 2:      #first or third seat in row
@@ -205,9 +205,9 @@ def main(num):
     pygame.display.init()         
     planeDisplay = pygame.display.set_mode((279,63))   #setting display region
     pygame.display.set_caption("Seating")       #Title for display
-    plane = pygame.image.load(planeImage)    #load plane seating image
-    firstTaken = pygame.image.load(firstClassImage).convert_alpha()    #load first class taken image
-    economyTaken = pygame.image.load(economyClassImage).convert_alpha()    #load economy class taken image
+    plane = pygame.image.load("C:/users/chris/desktop/Seat Assignment/plane.png")    #load plane seating image
+    firstTaken = pygame.image.load("C:/users/chris/desktop/Seat Assignment/firstClassTaken.png").convert_alpha()    #load first class taken image
+    economyTaken = pygame.image.load("C:/users/chris/desktop/Seat Assignment/economyClassTaken.png").convert_alpha()    #load economy class taken image
     planeDisplay.blit(plane,(0,0))
     pygame.display.flip()
     displayExit = False
@@ -227,4 +227,4 @@ def main(num):
                 pygame.quit()
                 sys.exit()
         
-main(100)   #assign seats   
+main(159)   #assign seats   
